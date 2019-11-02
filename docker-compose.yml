@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  app:
+    build: ./tttserver
+    image: "tttserver:latest"
+    depends_on:
+      - db
+    ports:
+    - 8080:8080
+  db:
+    image: postgres:latest
+    container_name: "my_postgres"
+    environment:
+      LC_ALL: C.UTF-8
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: tic_tac_toe
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    ports:
+    - 5432
+volumes:
+  pgdata:

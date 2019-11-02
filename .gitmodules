@@ -1,0 +1,3 @@
+[submodule "tttserver"]
+	path = tttserver
+	url = https://github.com/izgib/tttserver.git
