@@ -6,4 +6,8 @@ Tic-Tac-Toe contain server written on go using postgres for store game move. Doc
 docker-compose up
 ```
 
+## Stoping server
+```
+docker-compose down
+```
 
