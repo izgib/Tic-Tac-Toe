@@ -1,3 +1,6 @@
 [submodule "tttserver"]
 	path = tttserver
 	url = https://github.com/izgib/tttserver.git
+[submodule "tttandroid"]
+	path = tttandroid
+	url = https://github.com/izgib/tttandroid.git
