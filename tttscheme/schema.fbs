@@ -1,0 +1,86 @@
+namespace i9e;
+
+enum MarkType:byte {Cross = 0, Nought = 1}
+
+enum MarkTypeFilter:byte {Cross = 0, Nought = 1, Any=2}
+
+enum GameEventType:byte {GameStarted=0, Win = 1, Tie = 2, OK = 3, Cheating = 4, OppCheating = 5, Disonnected=6, OppDisconnected=7}
+
+table Move{
+  row: short;
+  col: short;
+}
+
+table GameParams {
+  rows:short;
+  cols:short;
+  win:short;
+  mark:MarkType;
+}
+
+table ListItem{
+  ID: short;
+  params: GameParams;
+}
+
+table GamesList{
+  items:[ListItem];
+}
+
+table WinLine{
+  mark: MarkType;
+  start: Move;
+  end: Move;
+}
+
+table Range{
+  start:short=3;
+  end: short=15;
+}
+
+
+table GameFilter {
+  rows: Range;
+  cols: Range;
+  win: Range;
+  mark: MarkTypeFilter;  
+}
+
+union FollowUpMessage{WinLine}
+
+table GameEvent{
+  type: GameEventType;
+  followUp: WinLine; 
+}
+
+table GameId {
+  ID:short;
+}
+
+union CreatorReqMsg{Move, GameParams}
+union CreatorRespMsg{Move, GameId, GameEvent}
+
+union OpponentReqMsg{GameId, Move}
+union OpponentRespMsg{Move, GameEvent}
+
+table CrRequest{
+  req:CreatorReqMsg;
+}
+
+table CrResponse{
+  resp:CreatorRespMsg;
+}
+
+table OppRequest{
+  req:OpponentReqMsg;
+}
+
+table OppResponse{
+  resp:OpponentRespMsg;
+}
+
+rpc_service GameConfigurator {
+  GetListOfGames(GameFilter):ListItem (streaming: "server");
+  CreateGame(CrRequest):CrResponse (streaming: "bidi");
+  JoinGame(OppRequest):OppResponse (streaming: "bidi");
+}

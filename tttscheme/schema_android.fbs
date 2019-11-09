@@ -1,0 +1,9 @@
+include "schema.fbs";
+
+namespace com.example.game.tic_tac_toe.i9e;
+
+union BluetoothCreatorMsg{GameParams, Move, GameEvent}
+
+table BluetoothCreator{
+  msg:BluetoothCreatorMsg;
+}
