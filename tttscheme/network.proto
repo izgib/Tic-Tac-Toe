@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package transport;
+
+import "base.proto";
+
+option go_package = "/transport";
+
+option java_package = "com.example.transport";
+option java_multiple_files = true;
+
+message ListItem {
+    uint32 id = 1;
+    base.GameParams params = 2;
+}
+
+message Range {
+    uint32 start = 1;
+    uint32 end = 2;
+}
+
+message GameFilter {
+    Range rows = 1;
+    Range cols = 2;
+    Range win = 3;
+    base.MarkType mark = 4;
+}
+
+message CreateRequest {
+    oneof payload {
+        base.Move move = 1;
+        base.ClientAction action = 2;
+        base.GameParams params = 3;
+    }
+}
+
+message CreateResponse {
+    oneof payload {
+        base.GameStatus status = 1;
+        base.WinLine win_line = 2;
+        uint32 game_id = 4;
+    }
+    optional base.Move move = 5;
+}
+
+message JoinRequest {
+    oneof payload {
+        base.Move move = 1;
+        base.ClientAction action = 2;
+        uint32 game_id = 3;
+    }
+}
+
+message JoinResponse {
+    oneof payload {
+        base.GameStatus status = 1;
+        base.WinLine win_line = 2;
+    }
+    optional base.Move move = 4;
+}
+
+message Interruption {
+    base.StopCause cause = 1;
+}
+
+service GameConfigurator {
+    rpc GetListOfGames(GameFilter) returns (stream ListItem);
+    rpc CreateGame(stream CreateRequest) returns (stream CreateResponse);
+    rpc JoinGame(stream JoinRequest) returns (stream JoinResponse);
+}

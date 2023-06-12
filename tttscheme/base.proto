@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package base;
+
+option go_package = "/transport";
+
+option java_package = "com.example.transport";
+option java_multiple_files = true;
+
+
+message Move {
+    uint32 row = 1;
+    uint32 col = 2;
+}
+
+message GameParams {
+    uint32 rows = 1;
+    uint32 cols = 2;
+    uint32 win = 3;
+    MarkType mark = 4;
+}
+
+enum MarkType {
+    MARK_TYPE_UNSPECIFIED = 0;
+    MARK_TYPE_CROSS = 1;
+    MARK_TYPE_NOUGHT = 2;
+}
+
+enum ClientAction {
+    CLIENT_ACTION_LEAVE = 0;
+    CLIENT_ACTION_GIVE_UP = 1;
+}
+
+message WinLine {
+    MarkType mark = 1;
+    optional Move start = 2;
+    optional Move end = 3;
+}
+
+enum GameStatus {
+    GAME_STATUS_UNSPECIFIED = 0;
+    GAME_STATUS_OK = 1;
+    GAME_STATUS_TIE = 2;
+    GAME_STATUS_GAME_STARTED = 3;
+}
+
+enum StopCause {
+    STOP_CAUSE_UNSPECIFIED = 0;
+    STOP_CAUSE_DISCONNECT = 1;
+    STOP_CAUSE_LEAVE = 2;
+    STOP_CAUSE_INVALID_MOVE = 3;
+    STOP_CAUSE_INTERNAL = 4;
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "base.proto";
+
+option java_package = "com.example.transport";
+option java_multiple_files = true;
+//option kotlin_package = "com.example.transport.data";
+
+message BluetoothCreatorMsg{
+    oneof payload {
+        base.GameStatus status = 1;
+        base.WinLine win_line = 2;
+        base.StopCause cause = 3;
+        base.GameParams params = 4;
+    }
+    optional base.Move move = 5;
+}
+
+message ClientMessage {
+    oneof payload {
+        base.Move move = 1;
+        base.ClientAction action = 2;
+    }
+}

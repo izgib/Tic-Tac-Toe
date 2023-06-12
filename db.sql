@@ -13,18 +13,25 @@ CREATE TYPE game_status as ENUM (
     'o_won',
     'tie',
     'x_disconnected',
+    'x_illegal_move',
+    'x_left',
     'o_disconnected',
-    'x_cheated',
-    'o_cheated'
+    'o_illegal_move',
+    'o_left'
 );
 
-CREATE TABLE game (
+CREATE TYPE game_entity AS (
+    end_move_index smallint,
+    status game_statusg
+);
+
+CREATE TABLE game_session (
     game_id smallserial PRIMARY KEY,
     rows smallint NOT NULL,
     cols smallint NOT NULL,
     win smallint NOT NULL,
     creator_mark mark,
     moves move[],
-    status game_status
+    entities game_entity[]
 );
 

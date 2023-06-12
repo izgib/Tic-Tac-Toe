@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package rpc_service;
+
+option java_package = "com.example.transport.errors";
+
+enum InterruptionCause{
+    DISCONNECT = 0;
+    LEAVE = 1;
+    OPP_INVALID_MOVE = 2;
+    INVALID_MOVE = 3;
+}
+
+message InterruptionInfo {
+    InterruptionCause cause = 1;
+}
