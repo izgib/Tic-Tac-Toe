@@ -22,11 +22,11 @@ CREATE TYPE game_status as ENUM (
 
 CREATE TYPE game_entity AS (
     end_move_index smallint,
-    status game_statusg
+    status game_status
 );
 
 CREATE TABLE game_session (
-    game_id smallserial PRIMARY KEY,
+    game_id bigserial PRIMARY KEY,
     rows smallint NOT NULL,
     cols smallint NOT NULL,
     win smallint NOT NULL,

@@ -9,14 +9,14 @@ option java_multiple_files = true;
 
 
 message Move {
-    uint32 row = 1;
-    uint32 col = 2;
+    int32 row = 1;
+    int32 col = 2;
 }
 
 message GameParams {
-    uint32 rows = 1;
-    uint32 cols = 2;
-    uint32 win = 3;
+    int32 rows = 1;
+    int32 cols = 2;
+    int32 win = 3;
     MarkType mark = 4;
 }
 
